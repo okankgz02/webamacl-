@@ -1,0 +1,6 @@
+version bilgileri
+git --version
+git --list email kulanýcý adý vs
+git config --global user.name "kullanýcý adý"
+git config --global user.email "oka@mail"
+git --list ile bilgileri göster
