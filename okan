@@ -1,0 +1,41 @@
+<?php 
+include("ayar.php");
+$uye_id=94;
+$sorgula=mysqli_query($baglan,"select c.*,p.* from ilanlar as c join ilanresimleri as p on p.id=( select p1.id from ilanresimleri as p1 where c.id=p1.ilan_id limit 1 ) where c.uye_id='$uye_id'
+");
+$say=mysqli_num_rows($sorgula);
+class Result{
+	public $ilanid;
+	public $uyeid;
+	public $fiyat;
+	public $resim;
+	public $aciklama;
+	public $baslik;
+	public $tf;
+	public $result;
+
+}
+$result=new Result();
+if(($say)>0){
+	while ($ata=mysqli_fetch_assoc($sorgula)) {
+		# code...
+
+
+	$result->ilanid=$ata["ilan_id"];
+	$result->uyeid=$uye_id;
+	$result->fiyat=$ata["ucret"];
+	$result->resim=$ata["resimyolu"];
+	$result->aciklama=$ata["aciklama"];
+	$result->baslik=$ata["baslik"];
+	$result->tf=true;
+	$result->result="İlan Var";
+	echo (json_encode($result));
+	}
+}else{
+	$result->tf=false;
+	$result->result="İlan Yok";
+	echo (json_encode($result));
+}
+
+
+?>
